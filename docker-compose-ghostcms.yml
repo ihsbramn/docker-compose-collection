@@ -1,0 +1,19 @@
+version: '3'
+services:
+  ghost:
+    image: ghost:latest
+    restart: always
+    ports:
+      - 3001:3001
+    environment:
+      - url=${host_url}
+      - NODE_ENV=development
+      - database__client=${db_client}
+      - database_connection_host=host.docker.internal
+      - database_connection_user=${db_username}
+      - database_connection_password=${db_passwd}
+      - database_connection_database=${db_name}
+    volumes:
+      - ./content:/var/lib/ghost/content
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
